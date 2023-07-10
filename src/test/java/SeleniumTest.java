@@ -9,30 +9,38 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class SeleniumTest {
 
-    private WebDriver driver;
+    private WebDriver webDriver;
 
     @Before
     public void setUp() {
         // Set up ChromeDriver path
-        System.setProperty("webdriver.chrome.driver", "./chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "/driver/chromedriver");//linux_64
+
+        // Get file
+        File file = new File("ButtonClicker.html");
+        String path = "file://" + file.getAbsolutePath();
 
         // Create a new ChromeDriver instance
-        driver = new ChromeDriver();
-        File file = new File("ButtonClicker.html");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
+        webDriver = new ChromeDriver(options);
+
         // Open the HTML file
-        driver.get(file.getAbsolutePath());
+        webDriver.get(path);
     }
+    
     @Test
     public void testButton1() {
         // check the initial state of the text:
-        WebElement displayElement = driver.findElement(By.id("text1"));
+        WebElement displayElement = webDriver.findElement(By.id("text1"));
         assertEquals("click the button ...", displayElement.getText());
 
         // Find button 1 and click it
-        WebElement button1 = driver.findElement(By.id("button1"));
+        WebElement button1 = webDriver.findElement(By.id("button1"));
         button1.click();
 
         assertEquals("button 1 clicked", displayElement.getText());
@@ -41,11 +49,11 @@ public class SeleniumTest {
     @Test
     public void testButton2() {
         // check the initial state of the text:
-        WebElement displayElement = driver.findElement(By.id("text2"));
+        WebElement displayElement = webDriver.findElement(By.id("text2"));
         assertEquals("now click this button ...", displayElement.getText());
 
         // Find button 2 and click it
-        WebElement button2 = driver.findElement(By.id("button2"));
+        WebElement button2 = webDriver.findElement(By.id("button2"));
         button2.click();
 
         assertEquals("button 2 clicked", displayElement.getText());
@@ -54,6 +62,6 @@ public class SeleniumTest {
     @After
     public void tearDown() {
         // Close the browser
-        driver.quit();
+        webDriver.quit();
     }
 }
