@@ -18,7 +18,7 @@ public class SeleniumTest {
     @Before
     public void setUp() {
         // Set up ChromeDriver path
-        System.setProperty("webdriver.chrome.driver", "/driver/chromedriver");//linux_64
+        System.setProperty("webdriver.chrome.driver", "driver/chromedriver");//linux_64
 
         // Get file
         File file = new File("ButtonClicker.html");
@@ -32,7 +32,7 @@ public class SeleniumTest {
         // Open the HTML file
         webDriver.get(path);
     }
-    
+
     @Test
     public void testButton1() {
         // check the initial state of the text:
